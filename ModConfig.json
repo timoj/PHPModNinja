@@ -1,0 +1,12 @@
+{
+  "testModStates": false,
+  "overwriteBackupDirectory": "",
+  "mods": [
+    {
+      "modName": "",
+      "pathToSource": "",
+      "pathToDeploy": "",
+      "overwriteFiles": true
+    }
+  ]
+}
