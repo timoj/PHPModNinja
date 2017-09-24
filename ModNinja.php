@@ -29,31 +29,40 @@ class ModNinja
 
     private function loadModConfig()
     {
-        $str = file_get_contents(dirname(__FILE__) . DIRECTORY_SEPARATOR . 'ModConfig.json');
-        $json = json_decode($str, true);
+        if (file_exists(dirname(__FILE__) . DIRECTORY_SEPARATOR . 'ModConfig.json')) {
+            $str = file_get_contents(dirname(__FILE__) . DIRECTORY_SEPARATOR . 'ModConfig.json');
+            $json = json_decode($str, true);
 
-        $this->doTestModStates = $json->testModStates;
-        $this->overwriteBackupDirectory = $json->overwriteBackupDirectory;
-        $this->mods = $json->mods;
+            $this->doTestModStates = $json->testModStates;
+            $this->overwriteBackupDirectory = $json->overwriteBackupDirectory;
+            $this->mods = $json->mods;
 
-        $modNamesInConfig = array();
-        foreach ($this->mods as $mod) {
-            array_push($modNamesInConfig, $mod->modName);
+            $modNamesInConfig = array();
+            foreach ($this->mods as $mod) {
+                array_push($modNamesInConfig, $mod->modName);
+            }
+            $this->modNamesInConfig = $modNamesInConfig;
+        } else {
+            $this->addLogEntry("ERROR", "No config file found at '" . dirname(__FILE__) . DIRECTORY_SEPARATOR . 'ModConfig.json' . "'");
         }
-        $this->modNamesInConfig = $modNamesInConfig;
     }
 
     private function loadModStates()
     {
-        $str = file_get_contents(dirname(__FILE__) . DIRECTORY_SEPARATOR . 'ModConfig.json');
-        $json = json_decode($str, true);
-        $this->states = $json->states;
+        if (file_exists(dirname(__FILE__) . DIRECTORY_SEPARATOR . 'ModConfig.json')) {
+            $str = file_get_contents(dirname(__FILE__) . DIRECTORY_SEPARATOR . 'ModConfig.json');
+            $json = json_decode($str, true);
+            $this->states = $json->states;
 
-        $modNamesInStates = array();
-        foreach ($this->states as $state) {
-            array_push($modNamesInConfig, $state->modName);
+            $modNamesInStates = array();
+            foreach ($this->states as $state) {
+                array_push($modNamesInConfig, $state->modName);
+            }
+            $this->modNamesInStates = $modNamesInStates;
+        } else {
+            $this->states = array();
+            $this->modNamesInStates = array();
         }
-        $this->modNamesInStates = $modNamesInStates;
     }
 
     private function checkConfigToModStates()
