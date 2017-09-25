@@ -3,8 +3,7 @@
 
 # PHPModNinja
 
-A php class for implementing files in a modular manner Edit
-Add topics
+A php class for implementing files in a modular manner
 
 
 ## Installation
